@@ -11,3 +11,8 @@ def home(request):
 
 def index(request):
     return redirect('home')
+
+def login(request):
+    template = loader.get_template('app/login.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

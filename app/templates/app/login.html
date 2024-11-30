@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HotTake</title>
+    <link rel="stylesheet" href=" {% static 'app/css/main.css' %} ">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="login-wrapper">
+                <div class="login-panel">
+                    <div class="left">
+                        Hottake
+                    </div>
+                    <div class="right">
+                        <form>
+                            <div class="field">
+                                <label for="username">Username:</label><br>
+                                <input type="text" id="username" name="username">
+                            </div>
+                            <div class="field">
+                                <label for="password">Password:</label><br>
+                                <input type="password" id="password" name="password">
+                            </div>
+                          </form> 
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

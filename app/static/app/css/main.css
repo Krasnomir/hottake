@@ -18,14 +18,18 @@ body {
     font-weight: 800;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     z-index: 1;
+    color: rgb(214, 84, 23);
 }
 
-.wrapper .body {
+.wrapper .body, .wrapper .login-wrapper {
     flex-grow: 1;
     background-color: rgb(240, 240, 240);
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.wrapper .body {
     justify-content: flex-start;
 }
 
@@ -34,4 +38,44 @@ body {
     height: 100%;
     background-color: white;
     padding: 2rem;
+}
+
+.wrapper .login-wrapper {
+    justify-content: center;
+}
+
+.wrapper .login-wrapper .login-panel {
+    box-sizing: border-box;
+    background-color: white;
+    height: 80%;
+    width: 80%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.wrapper .login-wrapper .login-panel .left, .wrapper .login-wrapper .login-panel .right {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper .login-wrapper .login-panel .left {
+    width: 30%;
+    align-items: flex-start;
+    font-size: 4rem;
+    color: rgb(214, 84, 23);
+    font-weight: 800;
+}
+
+.wrapper .login-wrapper .login-panel .right {
+    width: 70%;
+    align-items: center;
+}
+
+.wrapper .login-wrapper .login-panel .right .field {
+    margin: 1rem 0 1rem 0;
 }
