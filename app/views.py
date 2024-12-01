@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
+from .validation import validate
 
 def home(request):
     template = loader.get_template('app/home.html')
@@ -61,6 +62,12 @@ def register_view(request):
             context = {'message':"Username is already taken"}
             return HttpResponse(template.render(context, request))
         
+        # validate all the fields
+        validationMessage = validate(username, password, email, first_name, last_name)
+        if validationMessage != 0:
+            context = {'message':validationMessage}
+            return HttpResponse(template.render(context, request))
+
         # create a new user
         user = User.objects.create_user(
             username=username,

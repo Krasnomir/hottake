@@ -13,8 +13,8 @@ body {
 }
 
 .wrapper .header {
-    padding: 2rem;
-    font-size: 1.5rem;
+    padding: 1rem;
+    font-size: 2rem;
     font-weight: 800;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     z-index: 1;
@@ -64,7 +64,7 @@ body {
 }
 
 .wrapper .login-wrapper .login-panel .left {
-    width: 30%;
+    width: 50%;
     align-items: flex-start;
     font-size: 4rem;
     color: rgb(214, 84, 23);
@@ -72,8 +72,8 @@ body {
 }
 
 .wrapper .login-wrapper .login-panel .right {
-    width: 70%;
-    align-items: center;
+    width: 50%;
+    align-items: flex-start;
 }
 
 .wrapper .login-wrapper .login-panel .right .field {
