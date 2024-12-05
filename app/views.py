@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
 from .validation import validate
+from datetime import datetime
 
 def home(request):
     template = loader.get_template('app/home.html')
@@ -86,3 +87,25 @@ def register_view(request):
     #handle GET request
     context = {'message':""}
     return HttpResponse(template.render(context, request))
+
+def create_post(request):
+    template = loader.get_template('app/create-post.html')
+
+    if request.method == 'POST':
+        user = request.user
+        title = request.POST.get('title')
+        body = request.POST.get('body')
+        time = datetime.now()
+
+        post = Post.objects.create (
+            author = user,
+            title = title,
+            body = body,
+            date = time
+        )
+
+        post.save()
+
+        return redirect('/home/')
+
+    return HttpResponse(template.render({},request));

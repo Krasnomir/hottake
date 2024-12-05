@@ -14,7 +14,9 @@
         </div>
         <div class="body">
             <div class="article">
+                {% block content %}
                 {{ content }}
+                {% endblock %}
             </div>
         </div>
     </div>
