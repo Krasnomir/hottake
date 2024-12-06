@@ -10,9 +10,11 @@ from .validation import validate
 from datetime import datetime
 
 def home(request):
-    template = loader.get_template('app/home.html')
+    template = loader.get_template('app/posts.html')
+
+    posts = Post.objects.all()
     context = {
-        'content':"Welcome to the home page!"
+        'posts':posts
     }
     return HttpResponse(template.render(context, request))
 
@@ -109,3 +111,14 @@ def create_post(request):
         return redirect('/home/')
 
     return HttpResponse(template.render({},request));
+
+def user_info(request, username):
+    template = loader.get_template('app/home.html')
+
+    try:
+        user = User.objects.get(username=username)
+        context = {'content': user.username}
+    except User.DoesNotExist:
+        context = {'content': "No such user"}
+
+    return HttpResponse(template.render(context ,request));

@@ -21,14 +21,24 @@ html, body {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     z-index: 1;
     color: rgb(214, 84, 23);
+    display: flex;
+    flex-direction: row;
 }
 
-.wrapper .body, .wrapper .login-wrapper {
-    flex-grow: 1;
-    background-color: rgb(240, 240, 240);
+.wrapper .header .title {
+    width: 50%;
+}
+
+.wrapper .header .menu {
+    width: 50%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.wrapper .header .menu a {
+    text-decoration: none;
+    margin: 0 0 0 1rem;
 }
 
 .wrapper .body {
@@ -46,6 +56,52 @@ html, body {
     flex-direction: column;
     flex: 1;
 }
+
+
+
+/* home page/posts */
+
+.wrapper .body .article .post {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 0 0 2rem 0;
+}
+
+.wrapper .body .article .post a {
+    text-decoration: none;
+    color: black;
+}
+
+.wrapper .body .article .post .info {
+    display: flex;
+    flex-direction: row;
+}
+
+.wrapper .body .article .post .info .author {
+    background-color: rgb(214, 84, 23);
+    padding: 1rem;
+}
+
+.wrapper .body .article .post .info .date {
+    background-color: rgb(250, 113, 49);
+    padding: 1rem;
+}
+
+.wrapper .body .article .post .title {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.wrapper .body .article .post .post-content {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 100%;
+    padding: 1rem;   
+}
+
+/* posts creator */
 
 .wrapper .body .article .create-post {
     width: 100%;
@@ -69,6 +125,19 @@ html, body {
     padding: 1rem;
     width: 100%;
     font-family: default;
+}
+
+
+
+
+/* login stuff */
+
+.wrapper .body, .wrapper .login-wrapper {
+    flex-grow: 1;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .wrapper .login-wrapper {
