@@ -22,7 +22,7 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-function sendVoteRequest(postId, type) {
+function sendVoteRequest(postId, type, voteElement) {
     // send POST request to the server using csrf token
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/home/', true);
@@ -34,26 +34,52 @@ function sendVoteRequest(postId, type) {
     }));
 
     // recieving servers response
-    xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            // Successful response (status code 200-299)
-            const response = JSON.parse(xhr.responseText);  // Parse the response as JSON
-            console.log(response.message);  // Log the response message
-        } else {
-            // Handle error responses (status code 400-599)
-            console.error('Request failed with status:', xhr.status);
+    xhr.onload = () => {
+        const response = JSON.parse(xhr.responseText);  // Parse the response as JSON
+
+        switch(response.msg) {
+            case 1: // changed from upvote to downvote
+                voteElement.uCounter.innerHTML = voteElement.uCounter.innerHTML - 1; 
+                voteElement.dCounter.innerHTML = parseInt(voteElement.dCounter.innerHTML) + 1;
+                break; // Prevent falling through to the next case
+    
+            case 2: // changed from downvote to upvote
+                voteElement.uCounter.innerHTML = parseInt(voteElement.uCounter.innerHTML) + 1;
+                voteElement.dCounter.innerHTML = parseInt(voteElement.dCounter.innerHTML) - 1;
+                break;
+    
+            case 3: // downvoted for the first time
+                voteElement.dCounter.innerHTML = parseInt(voteElement.dCounter.innerHTML) + 1;
+                break;
+    
+            case 4: // upvoted for the first time
+                voteElement.uCounter.innerHTML = parseInt(voteElement.uCounter.innerHTML) + 1;
+                break;
         }
     };
+      
 }
+
+// vote elements basically represent the voting panels for each post and allow the script to change the vote count dynamically without having to refresh the page
 
 upvoteBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        sendVoteRequest(btn.getAttribute('data-post-id'), 'upvote');
+        const voteElement = {
+            dCounter: btn.parentElement.children[1].children[1],
+            uCounter: btn.children[1]
+        };
+
+        sendVoteRequest(btn.getAttribute('data-post-id'), 'upvote', voteElement);
     });
 });
 
 downvoteBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        sendVoteRequest(btn.getAttribute('data-post-id'), 'downvote');
+        const voteElement = {
+            dCounter: btn.children[1],
+            uCounter: btn.parentElement.children[0].children[1]
+        };
+
+        sendVoteRequest(btn.getAttribute('data-post-id'), 'downvote', voteElement);
     });
 });

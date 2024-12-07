@@ -31,30 +31,36 @@ def home(request):
 
             if vote_type == "downvote":
                 post.downvotes = post.downvotes + 1
+                post.save()
+                return JsonResponse({"msg": 3}) # downvoted for the first time
             else:
                 post.upvotes = post.upvotes + 1
-
-            return JsonResponse({"message": "Voted for the first time"})
+                post.save()
+                return JsonResponse({"msg": 4}) # upvoted for the first time
         
         elif userPreviousVote == "upvote":
             if vote_type == "upvote":
-                return JsonResponse({"message": "Can't upvote again"})
+                return JsonResponse({"msg": -1}) # fail
             else:
                 post.set_user_vote(request.user, vote_type)
+                post.upvotes = post.upvotes - 1
                 post.downvotes = post.downvotes + 1
-                return JsonResponse({"message": "Downvoted"})
+                post.save()
+                return JsonResponse({"msg": 1}) # downvoted
             
         else:  # userPreviousVote == "downvote"
             if vote_type == "downvote":
-                return JsonResponse({"message": "Can't downvote again"})
+                return JsonResponse({"msg": -1}) # fail
             else:
                 post.set_user_vote(request.user, vote_type)
+                post.downvotes = post.downvotes - 1
                 post.upvotes = post.upvotes + 1
-                return JsonResponse({"message": "Upvoted"})
+                post.save()
+                return JsonResponse({"msg": 2}) # upvoted
 
     template = loader.get_template('app/posts.html')
 
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-date')
     context = {
         'posts':posts,
         'user':request.user
@@ -141,6 +147,13 @@ def create_post(request):
         title = request.POST.get('title')
         body = request.POST.get('body')
         time = datetime.now()
+
+        if len(title) == 0:
+            context = {'message': "Title can't be empty"}
+            return HttpResponse(template.render(context,request))
+        elif len(body) == 0:
+            context = {'message': "Post body/description can't be empty"}
+            return HttpResponse(template.render(context,request))
 
         post = Post.objects.create (
             author = user,

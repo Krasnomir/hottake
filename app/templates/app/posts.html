@@ -23,8 +23,14 @@
         </div>
     </div>
     <div class="votes">
-        <button class="upvote" data-post-id="{{ post.id }}">↑</button>
-        <button class="downvote" data-post-id="{{ post.id }}">↓</button>
+        <div class="upvote" data-post-id="{{ post.id }}">
+            <div class="symbol"><img src="{% static 'app/img/trianglegreen.png' %}" alt="upvote"></div>
+            <div class="count">{{ post.upvotes }}</div>
+        </div>
+        <div class="downvote" data-post-id="{{ post.id }}">
+            <div class="symbol"><img src="{% static 'app/img/trianglered.png' %}" alt="downvote"></div>
+            <div class="count">{{ post.downvotes }}</div>
+        </div>
     </div>
 </div>
 {% endfor %}
