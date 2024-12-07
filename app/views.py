@@ -1,3 +1,5 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.template import loader
@@ -10,11 +12,52 @@ from .validation import validate
 from datetime import datetime
 
 def home(request):
+    if request.method == "POST":
+        # Parse the JSON data from the request body
+        data = json.loads(request.body)
+
+        # Access the post_id and vote_type from the parsed JSON
+        post_id = data.get('post_id')
+        vote_type = data.get('vote_type')
+
+        post = Post.objects.get(id=post_id)
+
+        # Get the user's previous vote
+        userPreviousVote = post.get_user_vote(request.user)
+
+        # Handle the voting logic
+        if userPreviousVote is None:
+            post.set_user_vote(request.user, vote_type)
+
+            if vote_type == "downvote":
+                post.downvotes = post.downvotes + 1
+            else:
+                post.upvotes = post.upvotes + 1
+
+            return JsonResponse({"message": "Voted for the first time"})
+        
+        elif userPreviousVote == "upvote":
+            if vote_type == "upvote":
+                return JsonResponse({"message": "Can't upvote again"})
+            else:
+                post.set_user_vote(request.user, vote_type)
+                post.downvotes = post.downvotes + 1
+                return JsonResponse({"message": "Downvoted"})
+            
+        else:  # userPreviousVote == "downvote"
+            if vote_type == "downvote":
+                return JsonResponse({"message": "Can't downvote again"})
+            else:
+                post.set_user_vote(request.user, vote_type)
+                post.upvotes = post.upvotes + 1
+                return JsonResponse({"message": "Upvoted"})
+
     template = loader.get_template('app/posts.html')
 
     posts = Post.objects.all()
     context = {
-        'posts':posts
+        'posts':posts,
+        'user':request.user
     }
     return HttpResponse(template.render(context, request))
 
