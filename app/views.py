@@ -169,12 +169,20 @@ def create_post(request):
     return HttpResponse(template.render({},request));
 
 def user_info(request, username):
-    template = loader.get_template('app/home.html')
+    template = loader.get_template('app/user.html')
 
     try:
         user = User.objects.get(username=username)
-        context = {'content': user.username}
     except User.DoesNotExist:
-        context = {'content': "No such user"}
+        context = {'message': "Couldn't find a user with that username"}
 
-    return HttpResponse(template.render(context ,request));
+    posts = Post.objects.filter(author=user).order_by('-date')
+
+    context = {
+        'username':username,
+        'date':user.date_joined,
+        'posts':posts,
+        'user':user
+    }
+
+    return HttpResponse(template.render(context, request));

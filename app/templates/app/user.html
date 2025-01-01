@@ -1,0 +1,18 @@
+{% extends "app/posts.html" %}
+
+{% block user-info %}
+
+{{ message }}
+
+<div class="user-info-wrapper">
+    <div class="info">
+        <div class="author">
+            {{ username }}
+        </div>
+        <div class="date">
+            Joined on: {{ date }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

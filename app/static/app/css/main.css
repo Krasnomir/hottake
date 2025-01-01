@@ -1,43 +1,49 @@
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.wrapper {
+html, body {
     height: 100%;
+    overflow-x: hidden;
+}
+
+.wrapper {
     display: flex;
     flex-direction: column;
 }
 
 .wrapper .header {
-    padding: 1rem;
-    font-size: 2rem;
-    font-weight: 800;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    z-index: 1;
+    position: sticky;
+    top: 0;
+    background-color: white;
     display: flex;
-    flex-direction: row;
+    padding: 1rem;
+    font-size: 1.5rem;
+    box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.1);
+    z-index: 2;
 }
 
 .wrapper .header .title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     width: 50%;
 }
 
 .wrapper .header .title a {
-    text-decoration: none !important;
-    color: rgb(214, 84, 23) !important;
+    text-decoration: none;
+    font-weight: 900;
+    color: rgb(219, 101, 22);
 }
 
 .wrapper .header .menu {
-    width: 50%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: flex-end;
+    width: 50%;
 }
 
 .wrapper .header .menu a {
@@ -45,58 +51,58 @@ html, body {
     margin: 0 0 0 1rem;
 }
 
+
+/* posts */
+
 .wrapper .body {
-    justify-content: flex-start;
+    display: flex;
+    height: 100%;
 }
 
 .wrapper .body .article {
-    width: 60%;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    background-color: white;
-    padding: 2rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.wrapper .body .article .info {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    flex: 1;
+    font-weight: 900;
+    color: white;
+    overflow: hidden;
+    align-items: stretch;
 }
 
+.wrapper .body .article .info .author {
+    background-color: rgb(219, 101, 22);
+    padding: 1rem;
+    border-radius: 3rem 0 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.wrapper .body .article .info .author a {
+    color: white;
+    text-decoration: none;
+}
 
-/* home page/posts */
+.wrapper .body .article .info .date {
+    background-color: rgb(219, 45, 22);
+    padding: 1rem;
+    border-radius: 0 3rem 3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
 
 .wrapper .body .article .post {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    margin: 0 0 2rem 0;
-    border-radius: 2rem;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-
-.wrapper .body .article .post a {
-    text-decoration: none;
-    color: black;
-}
-
-.wrapper .body .article .post .info {
-    display: flex;
-    flex-direction: row;
-    border-radius: 2rem;
-    overflow: hidden;
-}
-
-.wrapper .body .article .post .info .author {
-    font-weight: 800;
-    background-color: rgb(214, 84, 23);
-    padding: 1rem;
-}
-
-.wrapper .body .article .post .info .date {
-    background-color: rgb(250, 113, 49);
-    padding: 1rem;
+    background-color: white;
+    margin-bottom: 1rem;
+    box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.1);
 }
 
 .wrapper .body .article .post .title {
@@ -137,7 +143,24 @@ html, body {
     transform: scaleY(-1);
 }
 
-/* posts creator */
+
+
+/* user pages */
+
+.wrapper .body .article .user-info-wrapper {
+    margin-bottom: 1rem;
+}
+
+.wrapper .body .article .user-info-wrapper .info .author {
+    background-color: rgb(28, 196, 168);
+}
+
+.wrapper .body .article .user-info-wrapper .info .date {
+    background-color: rgb(26, 158, 85);
+}
+
+
+/* post creator */
 
 .wrapper .body .article .create-post {
     width: 100%;
@@ -166,7 +189,7 @@ html, body {
 .wrapper .body .article .create-post input {
     border: 0;
     background-color: white;
-    box-shadow: 0 4px 2px rgb(240, 240, 240);
+    box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1);
     padding: 0.5rem;
     border-radius: 2rem;
     transition: all 300ms ease-in-out;
@@ -175,13 +198,13 @@ html, body {
 .wrapper .body .article .create-post input:focus {
     outline: none;
     border: 0;
-    box-shadow: 0 2px 2px rgb(214, 84, 23);
+    box-shadow: 0px 0px 0px 2px rgb(219, 101, 22);
 }
 
 .wrapper .body .article .create-post textarea {
     border: 0;
     background-color: white;
-    box-shadow: 0 0 2px 2px rgb(240, 240, 240);
+    box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1);
     padding: 0.5rem;
     border-radius: 2rem;
     transition: all 300ms ease-in-out;
@@ -190,11 +213,11 @@ html, body {
 .wrapper .body .article .create-post textarea:focus {
     outline: none;
     border: 0;
-    box-shadow: 0 0 2px 2px rgb(214, 84, 23);
+    box-shadow: 0px 0px 0px 2px rgb(219, 101, 22);
 }
 
 .wrapper .body .article .create-post .btn {
-    background: linear-gradient(to right, rgb(214, 84, 23), rgb(250, 113, 49));
+    background-color: rgb(219, 101, 22);
     border-radius: 2rem;
     border: none;
     padding: 1rem;
@@ -208,99 +231,74 @@ html, body {
     filter: brightness(120%);
 }
 
+/* login */
 
-/* login stuff */
-
-.wrapper .body, .wrapper .login-wrapper {
-    flex-grow: 1;
-    background-color: rgb(240, 240, 240);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.wrapper {
+    height: 100%;
 }
 
 .wrapper .login-wrapper {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
 .wrapper .login-wrapper .login-panel {
-    box-sizing: border-box;
-    background-color: white;
-    height: 80%;
-    width: 80%;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
-    flex-direction: row;
-}
-
-.wrapper .login-wrapper .login-panel .left, .wrapper .login-wrapper .login-panel .right {
-    box-sizing: border-box;
-    height: 100%;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .wrapper .login-wrapper .login-panel .left {
-    width: 50%;
-    align-items: flex-start;
     font-size: 4rem;
-    color: rgb(214, 84, 23);
-    font-weight: 800;
+    font-weight: 900;
+    color: rgb(219, 101, 22);
+    margin-bottom: 2rem;
 }
 
-.wrapper .login-wrapper .login-panel .right {
-    width: 50%;
-    align-items: flex-start;
-}
-
-.wrapper .login-wrapper .login-panel .right form {
-    width: 100%;
-}
-
-.wrapper .login-wrapper .login-panel .right .field {
-    margin: 1rem 0 1rem 0;
+.wrapper .login-wrapper .login-panel form {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
 }
 
-.wrapper .btn {
-    background: linear-gradient(to right, rgb(214, 84, 23), rgb(250, 113, 49));
+.wrapper .login-wrapper .login-panel .field {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.wrapper .login-wrapper .login-panel .field label {
+    margin-right: 1rem;
+}
+
+.wrapper .login-wrapper .login-panel .field input {
+    border: 0;
+    background-color: white;
+    box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1);
+    padding: 0.5rem;
+    border-radius: 2rem;
+    transition: all 300ms ease-in-out;
+}
+
+.wrapper .login-wrapper .login-panel .field input:focus {
+    outline: none;
+    border: 0;
+    box-shadow: 0px 0px 0px 2px rgb(219, 101, 22);
+}
+
+.wrapper .login-wrapper .login-panel .field .btn {
+    background-color: rgb(219, 101, 22);
     border-radius: 2rem;
     border: none;
     padding: 1rem;
     color: white;
     font-weight: 800;
     font-size: 1.05rem;
-    transition: 300ms ease-in-out;
-}
-
-.wrapper .login-wrapper .login-panel .right .btn:hover {
-    filter: brightness(120%);
-}
-
-.wrapper .login-wrapper .login-panel .right label {
-    padding: 0.5rem;
-}
-
-.wrapper .login-wrapper .login-panel .right input {
-    width: 50%;
-    border: 0;
-    background-color: white;
-    box-shadow: 0 4px 2px rgb(240, 240, 240);
-    padding: 0.5rem;
-    border-radius: 2rem;
-    transition: all 300ms ease-in-out;
-}
-
-.wrapper .login-wrapper .login-panel .right input:focus {
-    outline: none;
-    border: 0;
-    box-shadow: 0 2px 2px rgb(214, 84, 23);
-}
-
-.wrapper .login-wrapper .login-panel .right .msg {
-    font-weight: 800;
-    color: rgb(230, 0, 0)!important;
+    transition: 300ms ease-in-out;   
 }
