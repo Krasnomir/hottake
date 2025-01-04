@@ -29,7 +29,8 @@ function sendVoteRequest(postId, type, voteElement) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('X-CSRFToken', csrftoken);
     xhr.send(JSON.stringify({
-        post_id: postId,
+        commentOrPost: "post",
+        id: postId,
         vote_type: type
     }));
 

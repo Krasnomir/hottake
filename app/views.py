@@ -16,44 +16,45 @@ def home(request):
         # JSON containg info about the user's vote
         data = json.loads(request.body)
 
-        post_id = data.get('post_id')
+        id = data.get('id')
         vote_type = data.get('vote_type')
 
-        post = Post.objects.get(id=post_id)
+        if data.get('commentOrPost') == "post":
+            post = Post.objects.get(pk=id)
 
-        userPreviousVote = post.get_user_vote(request.user)
+            userPreviousVote = post.get_user_vote(request.user)
 
-        if userPreviousVote is None:
-            post.set_user_vote(request.user, vote_type)
-
-            if vote_type == "downvote":
-                post.downvotes = post.downvotes + 1
-                post.save()
-                return JsonResponse({"msg": 3}) # downvoted for the first time
-            else:
-                post.upvotes = post.upvotes + 1
-                post.save()
-                return JsonResponse({"msg": 4}) # upvoted for the first time
-        
-        elif userPreviousVote == "upvote":
-            if vote_type == "upvote":
-                return JsonResponse({"msg": -1}) # fail
-            else:
+            if userPreviousVote is None:
                 post.set_user_vote(request.user, vote_type)
-                post.upvotes = post.upvotes - 1
-                post.downvotes = post.downvotes + 1
-                post.save()
-                return JsonResponse({"msg": 1}) # downvoted
+
+                if vote_type == "downvote":
+                    post.downvotes = post.downvotes + 1
+                    post.save()
+                    return JsonResponse({"msg": 3}) # downvoted for the first time
+                else:
+                    post.upvotes = post.upvotes + 1
+                    post.save()
+                    return JsonResponse({"msg": 4}) # upvoted for the first time
             
-        else:  # userPreviousVote == "downvote"
-            if vote_type == "downvote":
-                return JsonResponse({"msg": -1}) # fail
-            else:
-                post.set_user_vote(request.user, vote_type)
-                post.downvotes = post.downvotes - 1
-                post.upvotes = post.upvotes + 1
-                post.save()
-                return JsonResponse({"msg": 2}) # upvoted
+            elif userPreviousVote == "upvote":
+                if vote_type == "upvote":
+                    return JsonResponse({"msg": -1}) # fail
+                else:
+                    post.set_user_vote(request.user, vote_type)
+                    post.upvotes = post.upvotes - 1
+                    post.downvotes = post.downvotes + 1
+                    post.save()
+                    return JsonResponse({"msg": 1}) # downvoted
+                
+            else:  # userPreviousVote == "downvote"
+                if vote_type == "downvote":
+                    return JsonResponse({"msg": -1}) # fail
+                else:
+                    post.set_user_vote(request.user, vote_type)
+                    post.downvotes = post.downvotes - 1
+                    post.upvotes = post.upvotes + 1
+                    post.save()
+                    return JsonResponse({"msg": 2}) # upvoted
 
     template = loader.get_template('app/posts.html')
 
