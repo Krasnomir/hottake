@@ -1,5 +1,5 @@
-const upvoteBtns = window.document.querySelectorAll('.upvote');
-const downvoteBtns = window.document.querySelectorAll('.downvote');
+const upvoteBtns = window.document.querySelectorAll('.wrapper .body .article .post .upvote');
+const downvoteBtns = window.document.querySelectorAll('.wrapper .body .article .post .downvote');
 
 // get cookie vaue
 function getCookie(name) {
@@ -63,6 +63,7 @@ function sendVoteRequest(postId, type, voteElement) {
 // vote elements basically represent the voting panels for each post and allow the script to change the vote count dynamically without having to refresh the page
 
 upvoteBtns.forEach(btn => {
+    console.log("up");
     btn.addEventListener('click', () => {
         const voteElement = {
             dCounter: btn.parentElement.children[1].children[1],
@@ -74,6 +75,7 @@ upvoteBtns.forEach(btn => {
 });
 
 downvoteBtns.forEach(btn => {
+    console.log('down');
     btn.addEventListener('click', () => {
         const voteElement = {
             dCounter: btn.children[1],

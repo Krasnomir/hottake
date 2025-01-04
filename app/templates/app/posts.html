@@ -8,10 +8,13 @@
 {% endblock %}
 
 {% for post in posts %}
-<div class="post">
+<div class="post" data-url="{% url 'post_info' post_id=post.id %}">
+    <div class="post_id" style="display: none;">
+        {{ post.id }}
+    </div>
     <div class="info">
         <div class="author">
-            <a href={% url 'user_info' username=post.author.username %}>@{{ post.author }}</a>
+            <a href="{% url 'user_info' username=post.author.username %}">@{{ post.author }}</a>
         </div>
         <div class="date">
             {{ post.date }}
@@ -38,6 +41,8 @@
 </div>
 {% endfor %}
 
-<script src="{% static 'app/js/votes.js' %}"></script>
+
+<script defer src="{% static 'app/js/votes.js' %}"></script>
+<script defer src="{% static 'app/js/post-redirect.js' %}"></script>
 
 {% endblock %}

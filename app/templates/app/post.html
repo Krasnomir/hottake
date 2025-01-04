@@ -1,0 +1,83 @@
+{% extends "app/home.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="post">
+    <div class="info">
+        <div class="author">
+            <a href={% url 'user_info' username=post.author.username %}>@{{ post.author }}</a>
+        </div>
+        <div class="date">
+            {{ post.date }}
+        </div>
+    </div>
+    <div class="post-content">
+        <div class="title">
+            {{ post.title }}
+        </div>
+        <div class="post-body">
+            {{ post.body }}
+        </div>
+    </div>
+    <div class="votes">
+        <div class="upvote" data-post-id="{{ post.id }}">
+            <div class="symbol"><img src="{% static 'app/img/trianglegreen.png' %}" alt="upvote"></div>
+            <div class="count">{{ post.upvotes }}</div>
+        </div>
+        <div class="downvote" data-post-id="{{ post.id }}">
+            <div class="symbol"><img src="{% static 'app/img/trianglered.png' %}" alt="downvote"></div>
+            <div class="count">{{ post.downvotes }}</div>
+        </div>
+    </div>
+</div>
+
+<form method="POST" class="create-comment">
+    {% csrf_token %}
+    <textarea name="body" id="body" placeholder="Write your comment content here" cols="5" rows="1" maxlength="5000"></textarea>
+    <script>
+        // Auto expaning textarea
+        const textarea = document.getElementById('body');
+    
+        textarea.addEventListener('input', function() {
+          textarea.style.height = 'auto';
+          textarea.style.height = textarea.scrollHeight + 'px';
+        });
+    </script>
+    <input type="submit" value="Comment" class="btn">
+</form>
+
+{% for comment in comments %}
+
+<div class="comment">
+    <div class="commenter-info">
+        <div class="username">
+            <a href="{% url 'user_info' username=comment.author.username %}">@{{ comment.author }}</a>
+        </div>
+        <div class="date">
+            {{ comment.date  }}
+        </div>
+    </div>
+    <div class="content">
+        {{ comment.body }}
+    </div>
+    <!--
+    <div class="votes">
+        <div class="upvote" data-post-id="{{ post.id }}">
+            <div class="symbol"><img src="{% static 'app/img/trianglegreen.png' %}" alt="upvote"></div>
+            <div class="count">{{ post.upvotes }}</div>
+        </div>
+        <div class="downvote" data-post-id="{{ post.id }}">
+            <div class="symbol"><img src="{% static 'app/img/trianglered.png' %}" alt="downvote"></div>
+            <div class="count">{{ post.downvotes }}</div>
+        </div>
+    </div>
+    -->
+</div>
+
+{% endfor %}
+
+<script defer src="{% static 'app/js/votes.js' %}"></script>
+
+{% endblock %}

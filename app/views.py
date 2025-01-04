@@ -13,19 +13,16 @@ from datetime import datetime
 
 def home(request):
     if request.method == "POST":
-        # Parse the JSON data from the request body
+        # JSON containg info about the user's vote
         data = json.loads(request.body)
 
-        # Access the post_id and vote_type from the parsed JSON
         post_id = data.get('post_id')
         vote_type = data.get('vote_type')
 
         post = Post.objects.get(id=post_id)
 
-        # Get the user's previous vote
         userPreviousVote = post.get_user_vote(request.user)
 
-        # Handle the voting logic
         if userPreviousVote is None:
             post.set_user_vote(request.user, vote_type)
 
@@ -186,3 +183,37 @@ def user_info(request, username):
     }
 
     return HttpResponse(template.render(context, request));
+
+# displays a page with post and its comments
+def post_info(request, post_id):
+
+    if request.method == "POST":
+        user = request.user
+        body = request.POST.get('body')
+        time = datetime.now()
+
+        if len(body) == 0:
+            template = loader.get_template('app/post.html')
+            context = {
+                "post": Post.objects.get(pk=post_id),
+                "comments": Comment.objects.filter(post=Post.objects.get(pk=post_id))
+            }
+
+        comment = Comment.objects.create (
+            post = Post.objects.get(pk=post_id),
+            author = user,
+            body = body,
+            date = time
+        )
+
+        comment.save()
+
+        return redirect(post_info, post_id=post_id)
+
+    template = loader.get_template('app/post.html')
+    context = {
+        "post": Post.objects.get(pk=post_id),
+        "comments": Comment.objects.filter(post=Post.objects.get(pk=post_id))
+    }
+    
+    return HttpResponse(template.render(context, request))
