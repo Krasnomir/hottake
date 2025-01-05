@@ -26,6 +26,14 @@ html, body {
     z-index: 2;
 }
 
+.wrapper[data-theme="dark"] .header {
+    box-shadow: 0px 2px 0px 0px rgba(255,255,255,0.1);
+}
+
+.wrapper[data-theme="dark"] .header {
+    background-color: rgb(30, 30, 30);
+}
+
 .wrapper .header .title {
     display: flex;
     align-items: center;
@@ -63,6 +71,10 @@ html, body {
     overflow-y: auto;
 }
 
+.wrapper[data-theme="dark"] .body {
+    background-color: rgb(50, 50, 50);
+}
+
 .wrapper .body .article {
     display: flex;
     flex-direction: column;
@@ -72,6 +84,10 @@ html, body {
     box-sizing: border-box;
     overflow-y: auto;
     background-color: white;
+}
+
+.wrapper[data-theme="dark"] .body .article {
+    background-color: rgb(30, 30, 30);
 }
 
 @media only screen and (min-width: 1080px) {
@@ -113,9 +129,16 @@ html, body {
 }
 
 .wrapper .body .article .post {
-    background-color: white;
     margin-bottom: 1rem;
     box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.1);
+}
+
+.wrapper[data-theme="dark"] .body .article .post {
+    box-shadow: 0px 2px 0px 0px rgba(255,255,255,0.1);
+}
+
+.wrapper[data-theme="dark"] .body .article {
+    color: rgb(220, 220, 220);
 }
 
 .wrapper .body .article .post .title {
@@ -213,6 +236,12 @@ html, body {
     transition: all 300ms ease-in-out;
 }
 
+.wrapper[data-theme="dark"] .body .article .create-post input {
+    background-color: rgb(30, 30, 30);
+    color: rgb(220, 220, 220);
+    box-shadow: 0px 0px 0px 2px rgba(255,255,255,0.1);
+}
+
 .wrapper .body .article .create-post input[type=submit] {
     box-shadow: none;
 }
@@ -232,6 +261,12 @@ html, body {
     transition: all 300ms ease-in-out;
 }
 
+.wrapper[data-theme="dark"] .body .article .create-post textarea {
+    background-color: rgb(30, 30, 30);
+    color: rgb(220, 220, 220);
+    box-shadow: 0px 0px 0px 2px rgba(255,255,255,0.1);
+}
+
 .wrapper .body .article .create-post textarea:focus {
     outline: none;
     border: 0;
@@ -246,7 +281,18 @@ html, body {
     color: white;
     font-weight: 800;
     font-size: 1.05rem;
-    transition: 300ms ease-in-out;   
+    transition: 300ms ease-in-out;
+}
+
+.wrapper[data-theme="dark"] .body .article .create-post .btn {
+    background-color: rgb(219, 101, 22);
+    border-radius: 2rem;
+    border: none;
+    padding: 1rem;
+    color: white;
+    font-weight: 800;
+    font-size: 1.05rem;
+    transition: 300ms ease-in-out;
 }
 
 .wrapper .body .article .create-post .btn:hover {
@@ -348,6 +394,10 @@ html, body {
     margin-bottom: 1rem;
 }
 
+.wrapper[data-theme="dark"] .body .article .comment {
+    background-color: rgb(50, 50, 50);
+}
+
 .wrapper .body .article .comment .commenter-info {
     display: flex;
     padding: 1rem;
@@ -357,6 +407,10 @@ html, body {
 .wrapper .body .article .comment .commenter-info .username a {
     color: black !important;
     text-decoration: none !important;
+}
+
+.wrapper[data-theme="dark"] .body .article .comment .commenter-info .username a {
+    color: rgb(220, 220, 220) !important;
 }
 
 .wrapper .body .article .comment .commenter-info .date {
@@ -373,9 +427,15 @@ html, body {
     box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1);
     padding: 1rem;
     border-radius: 1.5rem;
-    transition: all 300ms ease-in-out;
+    transition: box-shadow 300ms ease-in-out;
     resize: none;
     width: 100%;
+}
+
+.wrapper[data-theme="dark"] .body .article .create-comment textarea {
+    box-shadow: 0px 0px 0px 2px rgba(255,255,255,0.1);
+    background-color: rgb(30, 30, 30);
+    color: rgb(220, 220, 220);
 }
 
 .wrapper .body .article .create-comment textarea:focus {

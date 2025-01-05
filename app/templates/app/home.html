@@ -7,12 +7,14 @@
     <title>HotTake</title>
     <link rel="stylesheet" href=" {% static 'app/css/main.css' %} ">
     <script defer src="{% static 'app/js/force-reload.js' %}"></script>
+    <script defer src="{% static 'app/js/themes.js' %}"></script>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper" data-theme="light">
         <div class="header">
             <div class="title"><a href={{"/home/"}}>HotTake</a></div>
             <div class="menu">
+                <span id="theme-selector">🌕</span>
                 <a href={{"/create/"}}>➕</a>
                 <a href="{% url 'user_info' username=user %}">👤</a>
             </div>
