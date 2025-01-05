@@ -55,6 +55,42 @@ def home(request):
                     post.upvotes = post.upvotes + 1
                     post.save()
                     return JsonResponse({"msg": 2}) # upvoted
+        else:
+            comment = Comment.objects.get(pk=id)
+
+            userPreviousVote = comment.get_user_vote(request.user)
+
+            if userPreviousVote is None:
+                comment.set_user_vote(request.user, vote_type)
+
+                if vote_type == "downvote":
+                    comment.downvotes = comment.downvotes + 1
+                    comment.save()
+                    return JsonResponse({"msg": 3}) # downvoted for the first time
+                else:
+                    comment.upvotes = comment.upvotes + 1
+                    comment.save()
+                    return JsonResponse({"msg": 4}) # upvoted for the first time
+            
+            elif userPreviousVote == "upvote":
+                if vote_type == "upvote":
+                    return JsonResponse({"msg": -1}) # fail
+                else:
+                    comment.set_user_vote(request.user, vote_type)
+                    comment.upvotes = comment.upvotes - 1
+                    comment.downvotes = comment.downvotes + 1
+                    comment.save()
+                    return JsonResponse({"msg": 1}) # downvoted
+                
+            else:  # userPreviousVote == "downvote"
+                if vote_type == "downvote":
+                    return JsonResponse({"msg": -1}) # fail
+                else:
+                    comment.set_user_vote(request.user, vote_type)
+                    comment.downvotes = comment.downvotes - 1
+                    comment.upvotes = comment.upvotes + 1
+                    comment.save()
+                    return JsonResponse({"msg": 2}) # upvoted
 
     template = loader.get_template('app/posts.html')
 

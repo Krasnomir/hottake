@@ -1,5 +1,8 @@
-const upvoteBtns = window.document.querySelectorAll('.wrapper .body .article .post .upvote');
-const downvoteBtns = window.document.querySelectorAll('.wrapper .body .article .post .downvote');
+const postUpvoteBtns = window.document.querySelectorAll('.wrapper .body .article .post .upvote');
+const postDownvoteBtns = window.document.querySelectorAll('.wrapper .body .article .post .downvote');
+
+const commentUpvoteBtns = window.document.querySelectorAll('.wrapper .body .article .comment .upvote');
+const commentDownvoteBtns = window.document.querySelectorAll('.wrapper .body .article .comment .downvote');
 
 // get cookie vaue
 function getCookie(name) {
@@ -22,15 +25,15 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-function sendVoteRequest(postId, type, voteElement) {
+function sendVoteRequest(id, type, voteElement, commentOrPost) {
     // send POST request to the server using csrf token
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/home/', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('X-CSRFToken', csrftoken);
     xhr.send(JSON.stringify({
-        commentOrPost: "post",
-        id: postId,
+        commentOrPost: commentOrPost,
+        id: id,
         vote_type: type
     }));
 
@@ -63,26 +66,46 @@ function sendVoteRequest(postId, type, voteElement) {
 
 // vote elements basically represent the voting panels for each post and allow the script to change the vote count dynamically without having to refresh the page
 
-upvoteBtns.forEach(btn => {
-    console.log("up");
+postUpvoteBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const voteElement = {
             dCounter: btn.parentElement.children[1].children[1],
             uCounter: btn.children[1]
         };
 
-        sendVoteRequest(btn.getAttribute('data-post-id'), 'upvote', voteElement);
+        sendVoteRequest(btn.getAttribute('data-post-id'), 'upvote', voteElement, 'post');
     });
 });
 
-downvoteBtns.forEach(btn => {
-    console.log('down');
+postDownvoteBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const voteElement = {
             dCounter: btn.children[1],
             uCounter: btn.parentElement.children[0].children[1]
         };
 
-        sendVoteRequest(btn.getAttribute('data-post-id'), 'downvote', voteElement);
+        sendVoteRequest(btn.getAttribute('data-post-id'), 'downvote', voteElement, 'post');
+    });
+});
+
+commentUpvoteBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const voteElement = {
+            dCounter: btn.parentElement.children[1].children[1],
+            uCounter: btn.children[1]
+        };
+
+        sendVoteRequest(btn.getAttribute('data-comment-id'), 'upvote', voteElement, 'comment');
+    });
+});
+
+commentDownvoteBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const voteElement = {
+            dCounter: btn.children[1],
+            uCounter: btn.parentElement.children[0].children[1]
+        };
+
+        sendVoteRequest(btn.getAttribute('data-comment-id'), 'downvote', voteElement, 'comment');
     });
 });

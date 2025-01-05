@@ -25,3 +25,11 @@ class Comment(models.Model):
     date = models.DateTimeField()
     upvotes = models.IntegerField(default = 0)
     downvotes = models.IntegerField(default = 0)
+    voters = JSONField(default=dict);
+
+    def set_user_vote(self, user, vote_type):
+        self.voters[user.username] = vote_type
+        self.save()
+
+    def get_user_vote(self, user):
+        return self.voters.get(user.username, None)

@@ -62,18 +62,16 @@
     <div class="content">
         {{ comment.body }}
     </div>
-    <!--
     <div class="votes">
-        <div class="upvote" data-post-id="{{ post.id }}">
+        <div class="upvote" data-comment-id="{{ comment.id }}">
             <div class="symbol"><img src="{% static 'app/img/trianglegreen.png' %}" alt="upvote"></div>
-            <div class="count">{{ post.upvotes }}</div>
+            <div class="count">{{ comment.upvotes }}</div>
         </div>
-        <div class="downvote" data-post-id="{{ post.id }}">
+        <div class="downvote" data-comment-id="{{ comment.id }}">
             <div class="symbol"><img src="{% static 'app/img/trianglered.png' %}" alt="downvote"></div>
-            <div class="count">{{ post.downvotes }}</div>
+            <div class="count">{{ comment.downvotes }}</div>
         </div>
     </div>
-    -->
 </div>
 
 {% endfor %}
